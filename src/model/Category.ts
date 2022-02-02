@@ -7,6 +7,7 @@ class Category {
 
   description: string;
 
+  // eslint-disable-next-line camelcase
   created_at: Date;
 
   constructor() {
@@ -17,4 +18,5 @@ class Category {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { Category };

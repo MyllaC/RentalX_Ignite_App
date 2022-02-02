@@ -1,15 +1,14 @@
 /* eslint-disable no-shadow */
 /* eslint-disable import/prefer-default-export */
 import { Category } from "../model/Category";
+import {
+  ICategoriesRepository,
+  ICreateCategoryDTO,
+} from "./ICategoriesRepository";
 
 // DTO -> Data Transfer Object: criar um objeto que vai ser responsavel pela tranferencia de dados entre uma classe e outra
 
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
-
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
   constructor() {
@@ -17,8 +16,6 @@ class CategoriesRepository {
   }
 
   create({ description, name }: ICreateCategoryDTO): void {
-    // responsável por cadastrar nossa categoria. Usa o void para falar que não tem retorno
-
     const category = new Category();
 
     Object.assign(category, {

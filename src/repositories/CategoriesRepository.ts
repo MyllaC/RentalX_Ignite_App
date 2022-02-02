@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable import/prefer-default-export */
 import { Category } from "../model/Category";
 
@@ -33,6 +34,12 @@ class CategoriesRepository {
   list(): Category[] {
     // pare ter o retorno da nossa lista de categorias
     return this.categories;
+  }
+
+  findByName(name: string): Category {
+    const category = this.categories.find(category => category.name === name);
+
+    return category;
   }
 }
 

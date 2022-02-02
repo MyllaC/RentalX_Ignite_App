@@ -13,5 +13,11 @@ categoriesRoutes.post("/", (request, response) => {
   return response.status(201).send();
 });
 
+categoriesRoutes.get("/categories", (request, response) => {
+  const all = categoriesRepository.list();
+
+  return response.json(all);
+});
+
 // eslint-disable-next-line import/prefer-default-export
 export { categoriesRoutes };

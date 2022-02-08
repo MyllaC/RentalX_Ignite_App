@@ -33,6 +33,7 @@ class ImportCategoryUseCase {
           });
         })
         .on("end", () => {
+          fs.promises.unlink(file.path); // remove o arquivo upload da pasta tmp
           resolve(categories);
         })
         .on("error", err => {

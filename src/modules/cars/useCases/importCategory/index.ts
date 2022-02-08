@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { ImportCategoryController } from "./ImporteCategoryController";
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 

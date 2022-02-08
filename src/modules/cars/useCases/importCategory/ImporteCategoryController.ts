@@ -1,4 +1,7 @@
+/* eslint-disable no-useless-constructor */
+/* eslint-disable import/prefer-default-export */
 import { Request, Response } from "express";
+
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
 class ImportCategoryController {

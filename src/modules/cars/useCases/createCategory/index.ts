@@ -1,3 +1,4 @@
+/*
 import { CategoriesRepository } from "../../repositories/implementations/CategoriesRepository";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 import { CreateCategoryController } from "./CreateCategoryController";
@@ -11,7 +12,4 @@ export default (): CreateCategoryController => {
 
   return createCategoryController;
 }
-
-
-
-
+*/

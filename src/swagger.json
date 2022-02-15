@@ -92,7 +92,7 @@
                 "properties": {
                   "fileName": {
                     "type": "string",
-                    "format": "bynary"
+                    "format": "binary"
                   }
                 }
               }

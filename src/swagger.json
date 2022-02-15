@@ -90,7 +90,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
+                  "fileName": {
                     "type": "string",
                     "format": "bynary"
                   }

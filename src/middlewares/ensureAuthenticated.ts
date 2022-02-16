@@ -12,32 +12,33 @@ export async function ensureAuthenticated(
   response: Response,
   next: NextFunction,
 ) {
-  // Bearer iuacfobaoba(token) -> vem dentro do header
-
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
     throw new AppError("Token missing", 401);
   }
 
-  // desestruturar o header [0] = bearer [1] = token
   const [, token] = authHeader.split(" ");
 
   try {
     const { sub: user_id } = verify(
       token,
-      "cfe275a5908b5650488e0b0342c2d6cc",
+      "2e247e2eb505c42b362e80ed4d05b078",
     ) as IPayload;
 
     const usersRepository = new UsersRepository();
-    const user = await usersRepository.findById(user_id);
+    const user = usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError("User does not existis!", 401);
+      throw new AppError("User does not exists", 401);
     }
+
+    request.user = {
+      id: user_id,
+    };
 
     next();
   } catch {
-    throw new AppError("Invalid token", 401);
+    throw new AppError("Invalid token!", 401);
   }
 }

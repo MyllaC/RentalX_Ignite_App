@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/prefer-default-export */
 import { inject, injectable } from "tsyringe";
+import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 interface IRequest {
   user_id: string;

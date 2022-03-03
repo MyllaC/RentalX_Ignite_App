@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable import/prefer-default-export */
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -5,12 +7,9 @@ import { container } from "tsyringe";
 import { UpdateUserAvatarUseCase } from "./updateUserAvatarUseCase";
 
 class UpdateUserAvatarController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.user;
-
-    // Receber arquivo
-
-    const avatar_file = null;
+    const avatar_file = request.file.filename;
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
 

@@ -5,7 +5,7 @@ import { Specification } from "../../entities/Specification";
 import {
   ISpecificationsRepository,
   ICreateSpecificationDTO,
-} from "../ISpecificationRepository";
+} from "../ISpecificationsRepository";
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>;

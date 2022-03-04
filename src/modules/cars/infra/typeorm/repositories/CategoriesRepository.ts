@@ -1,25 +1,21 @@
 import { getRepository, Repository } from "typeorm";
 
-import { Category } from "../../entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from "../ICategoriesRepository";
-
-
+} from "@modules/cars/repositories/ICategoriesRepository";
+import { Category } from "../entities/Category";
 
 // DTO -> Data Transfer Object: criar um objeto que vai ser responsavel pela tranferencia de dados entre uma classe e outra
 
 // singleton -> padrão de projeto, tem como definição criar a penas uma instacia de uma classe
 
 class CategoriesRepository implements ICategoriesRepository {
-  
   private repository: Repository<Category>;
 
   constructor() {
     this.repository = getRepository(Category);
   }
-
 
   async create({ description, name }: ICreateCategoryDTO): Promise<void> {
     const category = this.repository.create({
@@ -27,7 +23,7 @@ class CategoriesRepository implements ICategoriesRepository {
       name,
     });
 
-    await this.repository.save(category)
+    await this.repository.save(category);
   }
 
   async list(): Promise<Category[]> {
@@ -37,7 +33,7 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   async findByName(name: string): Promise<Category> {
-    //Select * from categories where name = "name"
+    // Select * from categories where name = "name"
     const category = await this.repository.findOne({ name });
 
     return category;

@@ -1,9 +1,11 @@
 /* eslint-disable class-methods-use-this */
 import { getRepository, Repository } from "typeorm";
+
 import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRepository";
+
 import { CarImage } from "../entities/CarImage";
 
-class CarsImageRepository implements ICarsImagesRepository {
+class CarsImagesRepository implements ICarsImagesRepository {
   private repository: Repository<CarImage>;
 
   constructor() {
@@ -22,4 +24,4 @@ class CarsImageRepository implements ICarsImagesRepository {
   }
 }
 
-export { CarsImageRepository };
+export { CarsImagesRepository };

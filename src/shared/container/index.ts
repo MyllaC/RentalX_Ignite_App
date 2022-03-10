@@ -14,6 +14,7 @@ import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositori
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CarsImagesRepository } from "@modules/cars/infra/typeorm/repositories/CarsImagesRepository";
 import { RentalsRepository } from "@modules/rentals/infra/typeorm/repositories/RentalsRepository";
+import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRepository";
 
 // Passar a ICategoriesRepository dentro do singleton
 container.registerSingleton<ICategoriesRepository>(

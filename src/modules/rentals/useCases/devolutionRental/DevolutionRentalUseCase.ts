@@ -9,10 +9,9 @@ import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
 interface IRequest {
   id: string;
-  user_id: string;
 }
 
-// @injectable()
+@injectable()
 class DevolutionRentalUseCase {
   constructor(
     @inject("RentalsRepository")
@@ -23,10 +22,10 @@ class DevolutionRentalUseCase {
     private dateProvider: IDateProvider,
   ) { }
 
-  async execute({ id, user_id }: IRequest): Promise<Rental> {
-    const rental = this.rentalsRepository.findById(id);
+  async execute({ id }: IRequest): Promise<Rental> {
+    const rental = await this.rentalsRepository.findById(id);
 
-    const car = await this.carsRepository.findById(id);
+    const car = await this.carsRepository.findById(rental.car_id);
 
     const minimum_daily = 1;
 
@@ -38,18 +37,15 @@ class DevolutionRentalUseCase {
 
     const dateNow = this.dateProvider.dateNow();
 
-    let daily = this.dateProvider.compareInDays(
-      rental.start_date,
-      this.dateProvider.dateNow(),
-    );
+    let daily = this.dateProvider.compareInDays(rental.start_date, dateNow);
 
     if (daily <= 0) {
       daily = minimum_daily;
     }
 
     const delay = this.dateProvider.compareInDays(
-      dateNow,
       rental.expected_return_date,
+      dateNow,
     );
 
     let total = 0;

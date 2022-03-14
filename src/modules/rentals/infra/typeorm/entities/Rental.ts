@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import {
   Column,
   CreateDateColumn,
@@ -54,10 +52,3 @@ class Rental {
 }
 
 export { Rental };
-function ManytoOne(arg0: () => any) {
-  throw new Error("Function not implemented.");
-}
-
-function JoinColumn(arg0: { name: string }) {
-  throw new Error("Function not implemented.");
-}

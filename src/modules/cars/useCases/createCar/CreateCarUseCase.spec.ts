@@ -1,68 +1,74 @@
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { UsersTokensRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
-import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
+import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
+import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
-import { CreateCarUseCase } from "./CreateCarUseCase";
+let authenticateUserUseCase: AuthenticateUserUseCase;
+let usersRepositoryInMemory: UsersRepositoryInMemory;
+let userTokensRepositoryInMemory: UsersTokensRepositoryInMemory;
+let dateProvider: DayjsDateProvider;
 
-let createCarUseCase: CreateCarUseCase;
-let carsRepositoryInMemory: CarsRepositoryInMemory;
+let createUserUseCase: CreateUserUseCase;
 
-describe("Create Car", () => {
+describe("Authenticate User", () => {
   beforeEach(() => {
-    carsRepositoryInMemory = new CarsRepositoryInMemory();
-    createCarUseCase = new CreateCarUseCase(carsRepositoryInMemory);
+    usersRepositoryInMemory = new UsersRepositoryInMemory();
+    userTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
+    dateProvider = new DayjsDateProvider();
+
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      usersRepositoryInMemory,
+      userTokensRepositoryInMemory,
+      dateProvider,
+    );
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
   });
 
-  it("shuld be able to create a new car", async () => {
-    const car = await createCarUseCase.execute({
-      name: "Name Car",
-      description: "Description Car",
-      daily_rate: 100,
-      license_plate: "ABC-1234",
-      fine_amount: 60,
-      brand: "Brand",
-      category_id: "category",
+  it("should be able to authenticate an user", async () => {
+    const user: ICreateUserDTO = {
+      driver_license: "000123",
+      email: "user@test.com",
+      password: "1234",
+      name: "User Test",
+    };
+    await createUserUseCase.execute(user);
+
+    const result = await authenticateUserUseCase.execute({
+      email: user.email,
+      password: user.password,
     });
 
-    expect(car).toHaveProperty("id");
+    expect(result).toHaveProperty("token");
   });
 
-  it("should not be able to create a car with an existing license plate", async () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        name: "Car1",
-        description: "Description Car",
-        daily_rate: 100,
-        license_plate: "ABC-1234",
-        fine_amount: 60,
-        brand: "Brand",
-        category_id: "category",
-      });
-
-      await createCarUseCase.execute({
-        name: "Car2",
-        description: "Description Car",
-        daily_rate: 100,
-        license_plate: "ABC-1234",
-        fine_amount: 60,
-        brand: "Brand",
-        category_id: "category",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+  it("should not be able to authenticate an nonexistent user", async () => {
+    await expect(
+      authenticateUserUseCase.execute({
+        email: "false@email.com",
+        password: "1234",
+      }),
+    ).rejects.toEqual(new AppError("Email or password incorrect!"));
   });
 
-  it("should not be able to create a car with available true by default", async () => {
-    expect(async () => {
-      const car = await createCarUseCase.execute({
-        name: "Car Available",
-        description: "Description Car",
-        daily_rate: 100,
-        license_plate: "ABCD-1234",
-        fine_amount: 60,
-        brand: "Brand",
-        category_id: "category",
-      });
-      expect(car.available).toBe(true);
-    });
+  it("should not be able to authenticate with incorrect password", async () => {
+    const user: ICreateUserDTO = {
+      driver_license: "9999",
+      email: "user@user.com",
+      password: "1234",
+      name: "User Test Error",
+    };
+
+    await createUserUseCase.execute(user);
+
+    await expect(
+      authenticateUserUseCase.execute({
+        email: user.email,
+        password: "incorrectPassword",
+      }),
+    ).rejects.toEqual(new AppError("Email or password incorrect!"));
   });
 });

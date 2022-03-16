@@ -1,7 +1,6 @@
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
@@ -30,8 +29,8 @@ class AuthenticateUserUseCase {
     @inject("UsersTokensRepository")
     private usersTokensRepository: IUsersTokensRepository,
     @inject("DayjsDateProvider")
-    private dateProvider: IDateProvider
-  ) {}
+    private dateProvider: IDateProvider,
+  ) { }
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
@@ -64,7 +63,7 @@ class AuthenticateUserUseCase {
     });
 
     const refresh_token_expires_date = this.dateProvider.addDays(
-      expires_refresh_token_days
+      expires_refresh_token_days,
     );
 
     await this.usersTokensRepository.create({

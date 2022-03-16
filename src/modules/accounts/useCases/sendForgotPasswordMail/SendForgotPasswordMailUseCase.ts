@@ -18,8 +18,8 @@ class SendForgotPasswordMailUseCase {
     @inject("DayjsDateProvider")
     private dateProvider: IDateProvider,
     @inject("MailProvider")
-    private mailProvider: IMailProvider
-  ) {}
+    private mailProvider: IMailProvider,
+  ) { }
 
   async execute(email: string): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
@@ -30,7 +30,7 @@ class SendForgotPasswordMailUseCase {
       "..",
       "views",
       "emails",
-      "forgotPassword.hbs"
+      "forgotPassword.hbs",
     );
 
     if (!user) {
@@ -56,7 +56,7 @@ class SendForgotPasswordMailUseCase {
       email,
       "Recuperação de Senha",
       variables,
-      templatePath
+      templatePath,
     );
   }
 }

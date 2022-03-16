@@ -19,32 +19,32 @@ import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositor
 
 container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository",
-  CategoriesRepository,
+  CategoriesRepository
 );
 
 container.registerSingleton<ISpecificationsRepository>(
   "SpecificationsRepository",
-  SpecificationsRepository,
+  SpecificationsRepository
 );
 
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
-  UsersRepository,
+  UsersRepository
 );
 
 container.registerSingleton<ICarsRepository>("CarsRepository", CarsRepository);
 
 container.registerSingleton<ICarsImagesRepository>(
   "CarsImagesRepository",
-  CarsImagesRepository,
+  CarsImagesRepository
 );
 
 container.registerSingleton<IRentalsRepository>(
   "RentalsRepository",
-  RentalsRepository,
+  RentalsRepository
 );
 
 container.registerSingleton<IUsersTokensRepository>(
   "UsersTokensRepository",
-  UsersTokensRepository,
+  UsersTokensRepository
 );

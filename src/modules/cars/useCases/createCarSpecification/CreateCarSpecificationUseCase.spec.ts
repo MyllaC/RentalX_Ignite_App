@@ -1,7 +1,5 @@
-import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 import { SpecificationsRepositoryInMemory } from "@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory";
-
 import { AppError } from "@shared/errors/AppError";
 import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
@@ -20,15 +18,14 @@ describe("Create Car Specification", () => {
   });
 
   it("should not be able to add a new specification to a now-existent car", async () => {
-    const car_id = "1234";
-    const specifications_id = ["54321"];
-
-    await expect(
-      createCarSpecificationUseCase.execute({
+    expect(async () => {
+      const car_id = "1234";
+      const specifications_id = ["54321"];
+      await createCarSpecificationUseCase.execute({
         car_id,
         specifications_id,
-      }),
-    ).rejects.toEqual(new AppError("Car does not exists!"));
+      });
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it("should be able to add a new specification to the car", async () => {

@@ -1,5 +1,5 @@
-import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
 import { AppError } from "@shared/errors/AppError";
+import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
@@ -17,7 +17,7 @@ describe("Create Category", () => {
   it("should be able to create a new category", async () => {
     const category = {
       name: "Category Test",
-      description: "Category description Test",
+      description: "Category Test",
     };
 
     await createCategoryUseCase.execute({
@@ -32,22 +32,22 @@ describe("Create Category", () => {
     expect(categoryCreated).toHaveProperty("id");
   });
 
-  it("should not be able to create a new category with name exists", async () => {
-    const category = {
-      name: "Category Test",
-      description: "Category description Test",
-    };
+  it("should not be able to create a new category with a name that already exists", async () => {
+    expect(async () => {
+      const category = {
+        name: "Category Test",
+        description: "Category Test",
+      };
 
-    await createCategoryUseCase.execute({
-      name: category.name,
-      description: category.description,
-    });
-
-    await expect(
-      createCategoryUseCase.execute({
+      await createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
-      }),
-    ).rejects.toEqual(new AppError("Category already exists!"));
+      });
+
+      await createCategoryUseCase.execute({
+        name: category.name,
+        description: category.description,
+      });
+    }).rejects.toBeInstanceOf(AppError);
   });
 });

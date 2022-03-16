@@ -3,7 +3,7 @@ import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTok
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 
 interface IRequest {
   token: string;
@@ -18,11 +18,12 @@ class ResetPasswordUserUseCase {
     @inject("DayjsDateProvider")
     private dateProvider: IDateProvider,
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
-  ) {}
+    private usersRepository: IUsersRepository,
+  ) { }
+
   async execute({ token, password }: IRequest): Promise<void> {
     const userToken = await this.usersTokensRepository.findByRefreshToken(
-      token
+      token,
     );
 
     if (!userToken) {
@@ -32,7 +33,7 @@ class ResetPasswordUserUseCase {
     if (
       this.dateProvider.compareIfBefore(
         userToken.expires_date,
-        this.dateProvider.dateNow()
+        this.dateProvider.dateNow(),
       )
     ) {
       throw new AppError("Token expired!");

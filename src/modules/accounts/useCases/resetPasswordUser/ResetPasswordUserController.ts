@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -8,7 +9,7 @@ class ResetPasswordUserController {
     const { token } = request.query;
     const { password } = request.body;
     const resetPasswordUserUseCase = container.resolve(
-      ResetPasswordUserUseCase
+      ResetPasswordUserUseCase,
     );
 
     await resetPasswordUserUseCase.execute({ token: String(token), password });

@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { getRepository, Repository } from "typeorm";
 
 import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRepository";

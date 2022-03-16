@@ -51,7 +51,7 @@ class CarsRepository implements ICarsRepository {
   async findAvailable(
     brand?: string,
     category_id?: string,
-    name?: string,
+    name?: string
   ): Promise<Car[]> {
     const carsQuery = await this.repository
       .createQueryBuilder("c")
@@ -62,7 +62,7 @@ class CarsRepository implements ICarsRepository {
     }
 
     if (name) {
-      carsQuery.andWhere("c.name = :name", { name });
+      carsQuery.andWhere("name = :name", { name });
     }
 
     if (category_id) {
@@ -87,8 +87,6 @@ class CarsRepository implements ICarsRepository {
       .where("id = :id")
       .setParameters({ id })
       .execute();
-
-    // Update cars set available = "true" where id = :id
   }
 }
 

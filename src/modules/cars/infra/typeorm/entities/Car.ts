@@ -1,14 +1,12 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable camelcase */
 import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryColumn,
   JoinColumn,
-  ManyToOne,
-  ManyToMany,
   JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
 } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 

@@ -1,23 +1,31 @@
 import { app } from "@shared/infra/http/app";
+
 import request from "supertest";
+
 import createConnection from "@shared/infra/typeorm";
+
 import { Connection } from "typeorm";
+
 import { hash } from "bcryptjs";
+
 import { v4 as uuidV4 } from "uuid";
 
 let connection: Connection;
 
 describe("Create Category Controller", () => {
   beforeAll(async () => {
-    jest.setTimeout(8000000);
     connection = await createConnection();
+
     await connection.runMigrations();
+
     const id = uuidV4();
+
     const password = await hash("admin", 8);
+
     await connection.query(
-      `INSERT INTO USERS(id,name,email,password, "isAdmin", created_at, driver_license)
-     values('${id}','admin','admin@rentx.com.br','${password}','true','now()', 'XXXX')
-    `,
+      `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at, driver_license ) 
+        values('${id}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'XXXXXX')
+      `,
     );
   });
 
@@ -40,6 +48,7 @@ describe("Create Category Controller", () => {
         name: "Category Supertest",
         description: "Category Supertest",
       })
+
       .set({
         Authorization: `Bearer ${token}`,
       });

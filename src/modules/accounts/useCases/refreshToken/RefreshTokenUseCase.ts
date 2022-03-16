@@ -22,18 +22,17 @@ class RefreshTokenUseCase {
     @inject("UsersTokensRepository")
     private usersTokensRepository: IUsersTokensRepository,
     @inject("DayjsDateProvider")
-    private dateProvider: IDateProvider
-  ) {}
+    private dateProvider: IDateProvider,
+  ) { }
 
   async execute(token: string): Promise<ITokenResponse> {
     const { email, sub } = verify(token, auth.secret_refresh_token) as IPayload;
-
     const user_id = sub;
-
-    const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(
-      user_id,
-      token
-    );
+    const userToken =
+      await this.usersTokensRepository.findByUserIdAndRefreshToken(
+        user_id,
+        token,
+      );
 
     if (!userToken) {
       throw new AppError("Refresh Token does not exists!");
@@ -47,7 +46,7 @@ class RefreshTokenUseCase {
     });
 
     const expires_date = this.dateProvider.addDays(
-      auth.expires_refresh_token_days
+      auth.expires_refresh_token_days,
     );
 
     await this.usersTokensRepository.create({

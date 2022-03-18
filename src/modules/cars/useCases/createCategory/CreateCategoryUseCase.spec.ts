@@ -10,7 +10,7 @@ describe("Create Category", () => {
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     createCategoryUseCase = new CreateCategoryUseCase(
-      categoriesRepositoryInMemory,
+      categoriesRepositoryInMemory
     );
   });
 
@@ -26,7 +26,7 @@ describe("Create Category", () => {
     });
 
     const categoryCreated = await categoriesRepositoryInMemory.findByName(
-      category.name,
+      category.name
     );
 
     expect(categoryCreated).toHaveProperty("id");
@@ -47,7 +47,7 @@ describe("Create Category", () => {
       createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
-      }),
+      })
     ).rejects.toEqual(new AppError("Category already exists!"));
   });
 });

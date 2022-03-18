@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 
@@ -10,9 +9,9 @@ class CreateCategoryController {
 
     const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
 
-    const category = await createCategoryUseCase.execute({ name, description });
+    await createCategoryUseCase.execute({ name, description });
 
-    return response.status(201).json(category);
+    return response.status(201).send();
   }
 }
 

@@ -17,17 +17,16 @@ describe("Send Forgot Mail", () => {
     dateProvider = new DayjsDateProvider();
     usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
     mailProvider = new MailProviderInMemory();
-
     sendForgotPasswordMailUseCase = new SendForgotPasswordMailUseCase(
       usersRepositoryInMemory,
       usersTokensRepositoryInMemory,
       dateProvider,
-      mailProvider
+      mailProvider,
     );
   });
 
   it("should be able to send a forgot password mail to user", async () => {
-    const sendMail = spyOn(mailProvider, "sendMail");
+    const sendMail = jest.spyOn(mailProvider, "sendMail");
 
     await usersRepositoryInMemory.create({
       driver_license: "664168",
@@ -43,12 +42,15 @@ describe("Send Forgot Mail", () => {
 
   it("should not be able to send an email if user does not exists", async () => {
     await expect(
-      sendForgotPasswordMailUseCase.execute("ka@uj.gr")
+      sendForgotPasswordMailUseCase.execute("ka@uj.gr"),
     ).rejects.toEqual(new AppError("User does not exists!"));
   });
 
   it("should be able to create an users token", async () => {
-    const generateTokenMail = spyOn(usersTokensRepositoryInMemory, "create");
+    const generateTokenMail = jest.spyOn(
+      usersTokensRepositoryInMemory,
+      "create",
+    );
 
     usersRepositoryInMemory.create({
       driver_license: "787330",

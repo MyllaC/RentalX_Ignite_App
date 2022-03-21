@@ -9,8 +9,9 @@ import { UserMap } from "@modules/accounts/mapper/UserMap";
 class ProfileUserUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
-  ) {}
+    private usersRepository: IUsersRepository,
+  ) { }
+
   async execute(id: string): Promise<IUserResponseDTO> {
     const user = await this.usersRepository.findById(id);
 

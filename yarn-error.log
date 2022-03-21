@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\crisc\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add detenv
+  C:\Program Files\nodejs\node.exe C:\Users\crisc\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/class-transformer
 
 PATH: 
   C:\Users\crisc\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\crisc\bin;C:\Python39\Scripts;C:\Python39;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\crisc\AppData\Local\Microsoft\WindowsApps;C:\Users\crisc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\crisc\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/detenv: Not found
+  Error: https://registry.yarnpkg.com/@types%2fclass-transformer: Not found
       at Request.params.callback [as _callback] (C:\Users\crisc\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
       at Request.self.callback (C:\Users\crisc\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
       at Request.emit (events.js:400:28)
@@ -46,10 +46,12 @@ npm manifest:
       "aws-sdk": "^2.1096.0",
       "bcryptjs": "^2.4.3",
       "cjs-loader": "^0.1.0",
+      "class-transformer": "^0.5.1",
       "cors": "^2.8.5",
       "cross-env": "^7.0.3",
       "csv-parse": "^5.0.4",
       "dayjs": "^1.10.8",
+      "dotenv": "^16.0.0",
       "express": "^4.17.2",
       "express-async-errors": "^3.1.1",
       "handlebars": "^4.7.7",
@@ -1549,6 +1551,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
     integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
   
+  class-transformer@^0.5.1:
+    version "0.5.1"
+    resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.5.1.tgz#24147d5dffd2a6cea930a3250a677addf96ab336"
+    integrity sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==
+  
   cli-highlight@^2.1.11:
     version "2.1.11"
     resolved "https://registry.yarnpkg.com/cli-highlight/-/cli-highlight-2.1.11.tgz#49736fa452f0aaf4fae580e30acb26828d2dc1bf"
@@ -1871,6 +1878,11 @@ Lockfile:
     integrity sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==
     dependencies:
       webidl-conversions "^5.0.0"
+  
+  dotenv@^16.0.0:
+    version "16.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
+    integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
   
   dotenv@^8.2.0:
     version "8.6.0"

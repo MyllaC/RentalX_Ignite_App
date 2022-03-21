@@ -24,6 +24,7 @@ class S3StorageProvider implements IStorageProvider {
     const ContentType = mime.getType(originalName);
 
     await this.client
+
       .putObject({
         Bucket: `${process.env.AWS_BUCKET}/${folder}`,
         Key: file,

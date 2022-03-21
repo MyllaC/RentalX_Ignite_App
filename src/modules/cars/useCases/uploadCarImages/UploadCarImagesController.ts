@@ -1,8 +1,7 @@
-/* eslint-disable class-methods-use-this */
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { UploadCarImagesUseCase } from "./UploadCarImagesUseCase";
+import { UploadCarImagesUseCase } from "./UploadCarImageUseCase";
 
 interface IFiles {
   filename: string;
@@ -15,7 +14,7 @@ class UploadCarImagesController {
 
     const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase);
 
-    const images_name = images.map(file => file.filename);
+    const images_name = images.map((file) => file.filename);
 
     await uploadCarImagesUseCase.execute({
       car_id: id,

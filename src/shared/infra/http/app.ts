@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
@@ -11,6 +12,7 @@ import swaggerFile from "../../../swagger.json";
 import { router } from "./routes";
 
 createConnection();
+
 const app = express();
 
 app.use(express.json());
@@ -29,10 +31,12 @@ app.use(
 
     return response.status(500).json({
       status: "error",
+
       message: `Internal server error - ${err.message}`,
     });
   },
 );
 
 // eslint-disable-next-line no-console
+
 export { app };

@@ -2,10 +2,10 @@ import { Router } from "express";
 import multer from "multer";
 
 import { CreateCategoryController } from "@modules/cars/useCases/createCategory/CreateCategoryController";
-import { ListCategoriesController } from "@modules/cars/useCases/listCategories/ListcategoriesController";
-import { ImportCategoryController } from "@modules/cars/useCases/importCategory/ImporteCategoryController";
-import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
+import { ImportCategoryController } from "@modules/cars/useCases/importCategory/ImportCategoryController";
+import { ListCategoriesController } from "@modules/cars/useCases/listCategories/ListCategoriesController";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
+import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
 const categoriesRoutes = Router();
 
@@ -21,7 +21,7 @@ categoriesRoutes.post(
   "/",
   ensureAuthenticated,
   ensureAdmin,
-  createCategoryController.handle,
+  createCategoryController.handle
 );
 
 categoriesRoutes.get("/", listCategoriesController.handle);
@@ -31,8 +31,7 @@ categoriesRoutes.post(
   upload.single("file"),
   ensureAuthenticated,
   ensureAdmin,
-  importCategoryController.handle,
+  importCategoryController.handle
 );
 
-// eslint-disable-next-line import/prefer-default-export
 export { categoriesRoutes };
